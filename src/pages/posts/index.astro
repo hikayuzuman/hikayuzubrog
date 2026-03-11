@@ -1,0 +1,26 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("posts"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout pageTitle="Posts">
+  <section class="grid gap-8">
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-sans uppercase tracking-[0.2em] text-black/50 dark:text-white/50">Archive</p>
+      <h1 class="text-3xl font-semibold">All posts</h1>
+      <p class="text-sm text-black/70 dark:text-white/70">
+        A chronological list of essays, notes, and field observations.
+      </p>
+    </div>
+
+    <div class="grid gap-5">
+      {posts.map((post) => (
+        <PostCard entry={post} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,30 @@
+﻿---
+const label = "Toggle theme";
+---
+<button
+  id="theme-toggle"
+  class="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-sm font-sans text-black/80 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/10 dark:text-white/80"
+  aria-label={label}
+  type="button"
+>
+  <span class="text-xs uppercase tracking-[0.2em]">Theme</span>
+</button>
+
+<script is:inline>
+  const storageKey = "theme";
+  const root = document.documentElement;
+  const button = document.getElementById("theme-toggle");
+  const getTheme = () => (root.classList.contains("dark") ? "dark" : "light");
+  const setTheme = (theme) => {
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem(storageKey, theme);
+  };
+
+  button?.addEventListener("click", () => {
+    setTheme(getTheme() === "dark" ? "light" : "dark");
+  });
+</script>

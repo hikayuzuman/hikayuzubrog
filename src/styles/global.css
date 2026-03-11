@@ -1,0 +1,45 @@
+﻿@import "tailwindcss";
+
+:root {
+  --bg: 248 246 242;
+  --surface: 255 255 255;
+  --ink: 31 27 23;
+  --muted: 102 95 86;
+  --accent: 193 93 40;
+  --ring: 214 122 68;
+}
+
+.dark {
+  --bg: 16 18 20;
+  --surface: 26 28 32;
+  --ink: 238 234 227;
+  --muted: 166 160 150;
+  --accent: 242 155 88;
+  --ring: 255 183 120;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: "Literata", Georgia, serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(var(--ring));
+  color: rgb(var(--bg));
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

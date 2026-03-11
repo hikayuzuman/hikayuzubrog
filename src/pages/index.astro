@@ -1,0 +1,37 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("posts");
+const posts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+<BaseLayout pageTitle="Home">
+  <section class="grid gap-8">
+    <div class="rounded-3xl border border-black/5 bg-white/70 p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+      <p class="text-xs font-sans uppercase tracking-[0.2em] text-black/50 dark:text-white/50">Journal</p>
+      <h1 class="mt-4 text-4xl font-semibold leading-tight">
+        A calm reading space for design, code, and daily clarity.
+      </h1>
+      <p class="mt-4 max-w-2xl text-base text-black/70 dark:text-white/70">
+        Short essays and project notes written to be skimmed, saved, and revisited later.
+      </p>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-semibold">Latest posts</h2>
+      <a class="text-sm font-sans text-black/60 transition hover:text-[rgb(var(--accent))] dark:text-white/60" href="/posts">
+        View all posts
+      </a>
+    </div>
+
+    <div class="grid gap-5">
+      {posts.map((post) => (
+        <PostCard entry={post} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
